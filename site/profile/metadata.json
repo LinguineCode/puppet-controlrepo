@@ -1,0 +1,14 @@
+{
+  "name": "profile",
+  "version": "0.1.0",
+  "author": "seanscottking",
+  "summary": "Puppet Profile Module",
+  "license": "Apache 2.0",
+  "source": "https://github.com/seanscottking/puppet-controlrepo",
+  "project_page": "https://github.com/seanscottking/puppet-controlrepo",
+  "issues_url": "https://github.com/seanscottking/puppet-controlrepo/issues",
+  "dependencies": [
+    {"version_requirement":">= 1.0.0","name":"puppetlabs-stdlib"}
+  ]
+}
+
