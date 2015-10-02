@@ -1,0 +1,161 @@
+# common.yaml
+
+---
+
+# Access and Sudoers
+#
+#
+access_and_sudoers::allow:
+  myadmingroup:
+    entity_type: 'group'
+  myaverageuser:
+    entity_type: 'user'
+    sudoer: false
+
+
+# SSH Server and Client
+#
+# server
+ssh::server_options::acceptenv:                       'LANG LC_*'
+ssh::server_options::banner:                          '/etc/issue.net'
+ssh::server_options::challengeresponseauthentication: 'no'
+ssh::server_options::ciphers:                         'aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc'
+ssh::server_options::clientalivecountmax:             '0'
+ssh::server_options::clientaliveinterval:             '900'
+ssh::server_options::gssapiauthentication:            'yes'
+ssh::server_options::permitrootlogin:                 'no'
+ssh::server_options::printlastlog:                    'yes' ##  RHEL-06-000507
+ssh::server_options::protocol:                        '2'
+ssh::server_options::subsystem:                       'sftp /usr/libexec/openssh/sftp-server'
+ssh::server_options::syslogfacility:                  'AUTHPRIV'
+ssh::server_options::usepam:                          'yes'
+ssh::server_options::x11forwarding:                   'no'
+ssh::server_options::printmotd:                       'yes'
+# client
+ssh::client_options::sendenv:             'LANG LC_*'
+ssh::client_options::forwardx11trusted:   'yes'
+ssh::client_options::serveraliveinterval: '10'
+
+
+# SSL
+#
+#
+ssl::cert:  'self-signed'
+ssl::key:   'self-signed'
+ssl::chain: 'self-signed'
+
+
+# Firewall - Allow incoming traffic
+#
+#
+firewall::trusted_networks::admin: #This will become tcp/3389 for Windows, or tcp/22 for anything else
+ - '10.0.2.0/24'
+firewall::trusted_networks::web:
+ - '10.0.0.0/8'
+firewall::trusted_networks::puppetmaster:
+ - '10.0.0.0/8'
+firewall::trusted_networks::nrpe:
+ - '10.0.2.0/24'
+
+# NTP Client
+#
+#
+ntp::servers: 
+  - 0.us.pool.ntp.org iburst
+  - 1.us.pool.ntp.org iburst
+  - 2.us.pool.ntp.org iburst
+  - 3.us.pool.ntp.org iburst
+
+# Puppet
+#
+#
+# agent
+puppet::server:      'puppet'
+puppet::environment: 'production'
+# master
+puppet::master::r10k_remote:     'https://github.com/seanscottking/puppet-controlrepo.git'
+puppet::master::hiera_hierarchy:
+ - 'app_tier/%%{}{::app_tier}'
+ - 'app_role/%%{}{::app_role}'
+ - 'virtual/%%{}{::virtual}'
+ - 'common'
+puppet::master::hiera_datadir:   '/etc/puppet/environments/%%{}{::environment}/hieradata'
+puppet::master::environments:    'directory'
+
+# DNS Client
+#
+#
+resolv_conf::searchpath: 'home'
+resolv_conf::nameservers: [ '8.8.8.8', '8.8.4.4' ]
+
+# Timezone
+#
+#
+timezone::timezone: 'Etc/UTC'
+
+# SELinux
+#
+#
+selinux::mode: 'enforcing'
+
+# NRPE Agent
+#
+#
+nrpe::allowed_hosts: [ 'nagios.home', '10.0.2.10' ]
+#nrpe::myplugins:
+# 'check_foo':
+#  plugin: 'check_disk'
+#  args: '-w 80 -c 90'
+
+
+# Supplementary Packages to install
+#
+#
+supplementary_packages::RedHat: [ 'autofs', 'boxes', 'mlocate',
+                                  'openldap-clients', 'rsync',
+                                  'rsyslog', 'screen', 'sysstat',
+                                  'tcpdump', 'telnet', 'unzip'
+                                  ]
+
+
+mysql::dba_usergroup:   'dba'
+mysql::admin_user:      'myadmin'
+mysql::admin_password:  'mysecret'
+mysql::user:
+  # trick to generate password at CLI: mysql -NBe "select password('MYSECRET')"
+ 'myadmin@localhost':
+  password_hash: '*FABE5482D5AADF36D028AC443D117BE1180B9725'
+ 'myadmin@10.%.%.%':
+  password_hash: '*FABE5482D5AADF36D028AC443D117BE1180B9725'
+
+mysql::grant:
+ 'myadmin@localhost/*.*':
+   user: 'myadmin@localhost'
+   privileges: [ 'ALL' ]
+   table: '*.*'
+ 'myadmin@10.%.%.%/*.*':
+   user: 'myadmin@10.%.%.%'
+   privileges: [ 'ALL' ]
+   table: '*.*'
+
+
+# Authentication (SSSD, PAM) configuration
+#
+#
+authentication::domain:           'directory.home'
+authentication::ldap_uri:         'ldap://directory.home:389'
+authentication::ldap_search_base: 'dc=directory,dc=home'
+authentication::ldap_user_shell:  'publicShell'
+authentication::krb5_realm:       'DIRECTORY.home'
+authentication::override_shell:   '/bin/bash'
+
+# RedHat Network/Satellite Server Config
+#
+#
+###rhsm::register::server:         'satellite1.home'
+###rhsm::register::org:            'HOME'
+###rhsm::register::activationkeys: 'My Standard RHEL6 Activation Key'
+###rhsm::register::pool:           '00bbdcb34b5f10d1014bc5c914e30337'
+###rhsm::register::sslcerts:
+### - 'http://satellite1.home/certs/something.pem':
+
