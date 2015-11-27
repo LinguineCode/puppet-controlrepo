@@ -20,8 +20,11 @@ if [ -f /etc/redhat-release ]; then
   case "$(lsb_release -sr | cut -d'.' -f1)" in
 
     6)
-      rpm -ivh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-      rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+      rpm --import http://passenger.stealthymonkeys.com/RPM-GPG-KEY-stealthymonkeys.asc
+      
+      yum install -y http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+      yum install -y http://passenger.stealthymonkeys.com/rhel/6/passenger-release.noarch.rpm
+      yum install -y https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
       ;;
 
     *)
