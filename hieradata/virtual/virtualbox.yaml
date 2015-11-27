@@ -6,5 +6,4 @@ firewall::trusted_networks::admin:
 
 access_and_sudoers::allow:
  'vagrant':
-  entity_type:    'user'
   sudoer_content: 'ALL=(ALL) NOPASSWD:ALL'
