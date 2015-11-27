@@ -20,8 +20,18 @@ if [ -f /etc/redhat-release ]; then
   case "$(lsb_release -sr | cut -d'.' -f1)" in
 
     6)
-      rpm -ivh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-      rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+      yum install -y http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+      yum install -y https://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+      
+      # Passenger - This area needs attention
+      #1 - Enable GPG checks on Phusion's repo
+      #2 - Why do we need to un-disable SELinux? Because "yum install passenger" has a problem. See bootstrap-pre.sh file.
+
+      wget -O /etc/yum.repos.d/el-passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
+      yum install -y --nogpgcheck passenger mod_passenger
+
+      echo "Setting SELinux to permissive mode"
+      sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
       ;;
 
     *)
