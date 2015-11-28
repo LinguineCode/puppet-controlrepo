@@ -116,7 +116,8 @@ nrpe::allowed_hosts: [ 'nagios.home', '10.0.2.10' ]
 supplementary_packages::RedHat: [ 'autofs', 'boxes', 'mlocate',
                                   'openldap-clients', 'rsync',
                                   'rsyslog', 'screen', 'sysstat',
-                                  'tcpdump', 'telnet', 'unzip'
+                                  'tcpdump', 'telnet', 'unzip',
+                                  'vim-enhanced'
                                   ]
 
 
