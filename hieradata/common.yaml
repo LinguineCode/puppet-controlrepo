@@ -74,11 +74,13 @@ puppet::server:      'puppet'
 puppet::environment: 'production'
 # master
 puppet::master::r10k_remote:     'https://github.com/seanscottking/puppet-controlrepo.git'
+puppet::master::hiera_eyaml:     'true'
 puppet::master::hiera_hierarchy:
  - 'app_tier/%%{}{::app_tier}'
  - 'app_role/%%{}{::app_role}'
- - 'virtual/%%{}{::virtual}'
+ - 'vagrant/%%{}{::vagrant}'
  - 'common'
+puppet::master::hiera_master_service: 'httpd'
 puppet::master::hiera_datadir:   '/etc/puppet/environments/%%{}{::environment}/hieradata'
 puppet::master::environments:    'directory'
 
