@@ -69,7 +69,7 @@ sudo yum install -y figlet
 
 sudo puppet apply -e 'host { puppet: ip => "127.0.1.1", }'
 sudo puppet apply -e 'class { "::r10k": remote => "https://github.com/seanscottking/puppet-controlrepo.git", }'
-sudo puppet apply -e 'class { "::hiera": eyaml => true, hierarchy => [ "app_role/%{::app_role}", "app_tier/%{::app_tier}", "vagrant/%{::vagrant}", common, ], datadir => "/etc/puppet/environments/%{::environment}/hieradata", }'
+sudo puppet apply -e 'class { "::hiera": eyaml => true, hierarchy => [ "app_tier/%{::app_tier}", "app_role/%{::app_role}", "vagrant/%{::vagrant}", common, ], datadir => "/etc/puppet/environments/%{::environment}/hieradata", }'
 sudo puppet apply -e 'class { "::puppet::master": environments => "directory", }'
 
 sudo r10k deploy environment -p
