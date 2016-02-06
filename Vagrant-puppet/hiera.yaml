@@ -3,9 +3,9 @@
   - yaml
   - json
 :yaml:
-  :datadir: /vagrant/puppet/hieradata
+  :datadir: /vagrant/hieradata
 :json:
-  :datadir: /vagrant/puppet/hieradata
+  :datadir: /vagrant/hieradata
 :hierarchy:
   - "app_tier/%{::app_tier}"
   - "app_role/%{::app_role}"
