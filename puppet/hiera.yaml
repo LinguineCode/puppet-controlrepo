@@ -1,0 +1,13 @@
+---
+:backends:
+  - yaml
+  - json
+:yaml:
+  :datadir: /vagrant/puppet/hieradata
+:json:
+  :datadir: /vagrant/puppet/hieradata
+:hierarchy:
+  - "app_tier/%{::app_tier}"
+  - "app_role/%{::app_role}"
+  - "vagrant/%{::vagrant}"
+  - common
