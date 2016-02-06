@@ -5,6 +5,7 @@ class profile::base::ssh {
 
   # Hiera lookups
   #
+  $ssh_storeconfigs_enabled = str2bool(hiera('ssh::storeconfigs_enabled'))
   # server
   $ssh_acceptenv                       = hiera('ssh::server_options::acceptenv')
   $ssh_banner                          = hiera('ssh::server_options::banner')
@@ -28,7 +29,8 @@ class profile::base::ssh {
 
 
   class { '::ssh':
-    server_options => {
+    storeconfigs_enabled => $ssh_storeconfigs_enabled,
+    server_options       => {
       'AcceptEnv'                       => $ssh_acceptenv,
       'Banner'                          => $ssh_banner,
       'ChallengeResponseAuthentication' => $ssh_challengeresponseauthentication,
@@ -46,7 +48,7 @@ class profile::base::ssh {
       'PrintMotd'                       => $ssh_printmotd,
     },
 
-  client_options   => {
+  client_options         => {
 
     'Host *' => {
       'SendEnv'             => $ssh_sendenv,
