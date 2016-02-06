@@ -4,6 +4,8 @@
 firewall::trusted_networks::admin:
  - '10.0.2.0/24'
 
+ssh::storeconfigs_enabled: 'false'
+
 access_and_sudoers::allow:
  'vagrant':
   sudoer_content: 'ALL=(ALL) NOPASSWD:ALL'

@@ -15,6 +15,7 @@ access_and_sudoers::allow:
 
 # SSH Server and Client
 #
+ssh::storeconfigs_enabled: 'true'
 # server
 ssh::server_options::acceptenv:                       'LANG LC_*'
 ssh::server_options::banner:                          '/etc/issue.net'
