@@ -5,7 +5,6 @@ node default {
     hiera_include('classes')
   }
   else {
-    notify { "${::clientcert} does not have a specific role assigned, using only role::base": }
     include role::base
   }
 
