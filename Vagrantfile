@@ -8,9 +8,6 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "box-cutter/centos67"
-  config.vm.provision :shell, path: "bootstrap_pre.sh"
-  config.vm.provision :reload
-  config.vm.provision :shell, path: "bootstrap_post.sh"
   config.vm.provider "virtualbox" do |v|
     host = RbConfig::CONFIG['host_os']
   
@@ -31,4 +28,20 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--memory", mem]
     v.customize ["modifyvm", :id, "--cpus", cpus]
   end
+  
+  config.vm.provision :shell, :path => "install_puppet.sh"
+  
+  config.r10k.puppet_dir = "puppet"
+  config.r10k.puppetfile_path = "puppet/Puppetfile"
+  config.r10k.module_path = "puppet/modules/"
+  
+  config.vm.provision "puppet" do |puppet|
+    #puppet.options = "--verbose"
+    puppet.facter = { "vagrant" => "vagrant" }
+    puppet.manifests_path = "puppet/manifests/"
+    puppet.manifest_file  = "site.pp"
+    puppet.module_path = [ "puppet/site/", "puppet/modules/" ]
+    puppet.hiera_config_path = "puppet/hiera.yaml"
+  end
+
 end
