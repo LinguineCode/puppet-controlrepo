@@ -37,7 +37,11 @@ Vagrant.configure("2") do |config|
   
   config.vm.provision "puppet" do |puppet|
     #puppet.options = "--verbose"
-    puppet.facter = { "vagrant" => "vagrant" }
+    puppet.facter = {
+      "vagrant" => "vagrant",
+      "app_role" => ENV.fetch('APP_ROLE', 'none'),
+      "app_tier" => ENV.fetch('APP_TIER', 'none'),
+    }
     puppet.manifests_path = "puppet/manifests/"
     puppet.manifest_file  = "site.pp"
     puppet.module_path = [ "puppet/site/", "puppet/modules/" ]
