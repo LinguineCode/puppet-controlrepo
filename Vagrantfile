@@ -44,4 +44,13 @@ Vagrant.configure("2") do |config|
     puppet.hiera_config_path = "puppet/hiera.yaml"
   end
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+
+    config.cache.synced_folder_opts = {
+      type: :nfs,
+      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    }
+  end
+
 end
