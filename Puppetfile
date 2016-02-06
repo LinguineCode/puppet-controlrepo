@@ -2,6 +2,8 @@ forge 'forge.puppetlabs.com'
 
 
 ### Dependencies:
+
+
 mod 'stdlib',
  :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
  :ref => '4.9.0'
@@ -19,10 +21,31 @@ mod 'validate_multi', #dependency for nsswitch module
  :git => 'https://github.com/trlinkin/puppet-validate_multi.git',
  :ref => '0.1.0'
 
+mod 'inifile',
+ :git => 'https://github.com/puppetlabs/puppetlabs-inifile',
+ :ref => '1.4.3'
+ 
+#dependency for zack/r10k
+mod 'git',
+ :git => 'https://github.com/puppetlabs/puppetlabs-git.git',
+ :ref => '0.4.0'
+ 
+#dependency for zack/r10k
+mod 'ruby',
+ :git => 'https://github.com/puppetlabs/puppetlabs-ruby.git',
+ :ref => '0.4.0'
 
 
+### Modules
 
-####
+
+mod 'r10k',
+ :git => 'https://github.com/acidprime/r10k.git',
+ :ref => 'v3.2.0'
+
+mod 'hiera',
+ :git => 'https://github.com/hunner/puppet-hiera.git',
+ :ref => '2.0.1'
 
 mod 'ntp',
  :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
