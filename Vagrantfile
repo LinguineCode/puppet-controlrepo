@@ -29,11 +29,11 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--cpus", cpus]
   end
   
-  config.vm.provision :shell, :path => "install_puppet.sh"
+  config.vm.provision :shell, :path => "Vagrant-puppet/install_puppet.sh"
   
-  config.r10k.puppet_dir = "puppet"
-  config.r10k.puppetfile_path = "puppet/Puppetfile"
-  config.r10k.module_path = "puppet/modules/"
+  config.r10k.puppet_dir = "/"
+  config.r10k.puppetfile_path = "Puppetfile"
+  config.r10k.module_path = "modules/"
   
   config.vm.provision "puppet" do |puppet|
     #puppet.options = "--verbose"
@@ -42,19 +42,19 @@ Vagrant.configure("2") do |config|
       "app_role" => ENV.fetch('APP_ROLE', 'none'),
       "app_tier" => ENV.fetch('APP_TIER', 'none'),
     }
-    puppet.manifests_path = "puppet/manifests/"
+    puppet.manifests_path = "manifests/"
     puppet.manifest_file  = "site.pp"
-    puppet.module_path = [ "puppet/site/", "puppet/modules/" ]
-    puppet.hiera_config_path = "puppet/hiera.yaml"
+    puppet.module_path = [ "site/", "modules/" ]
+    puppet.hiera_config_path = "Vagrant-puppet/hiera.yaml"
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
 
-    config.cache.synced_folder_opts = {
-      type: :nfs,
-      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
-    }
+    #config.cache.synced_folder_opts = {
+    #  type: :nfs,
+    #  mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    #}
   end
 
 end
