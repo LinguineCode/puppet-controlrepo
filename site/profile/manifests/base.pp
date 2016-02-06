@@ -71,7 +71,7 @@ class profile::base {
   # Extra items for specific Hypervisors
   #
   #
-  if $::virtual == 'virtualbox' {
+  if $::vagrant == 'vagrant' {
     include profile::base::vagrant
   }
 
