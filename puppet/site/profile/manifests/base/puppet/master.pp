@@ -23,13 +23,10 @@ class profile::base::puppet::master {
     remote => $puppet_master_r10k_remote,
   }
 
-  # Set up Hiera
-  #
-  #
   class { '::hiera':
-    eyaml          => $puppet_master_hiera_eyaml,
-    hierarchy      => $puppet_master_hiera_hierarchy,
-    datadir        => $puppet_master_hiera_datadir,
+    eyaml     => $puppet_master_hiera_eyaml,
+    hierarchy => $puppet_master_hiera_hierarchy,
+    datadir   => $puppet_master_hiera_datadir,
     # Enable this when hunner/hiera module's tag 1.3.3 gets published
     #master_service => $puppet_master_master_service,
   }
