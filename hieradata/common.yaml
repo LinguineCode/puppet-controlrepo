@@ -79,6 +79,7 @@ puppet::master::hiera_eyaml:     'true'
 puppet::master::hiera_hierarchy:
  - 'app_tier/%%{}{::app_tier}'
  - 'app_role/%%{}{::app_role}'
+ - 'datacenter/%%{}{::network}'
  - 'vagrant/%%{}{::vagrant}'
  - 'common'
 puppet::master::hiera_master_service: 'httpd'
