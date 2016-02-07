@@ -30,6 +30,13 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision :shell, :path => "Vagrant-puppet/install_puppet.sh"
+
+  if ENV['APP_ROLE'] =~ /^puppet-/
+      # https://tickets.puppetlabs.com/browse/PUP-2740
+      config.vm.provision "shell",
+        name: "When APP_ROLE=puppet*, we need PUP-2740",
+        inline: "/bin/sed -i '2s/.*/GC.disable/' /usr/bin/puppet"
+  end
   
   config.r10k.puppet_dir = "/"
   config.r10k.puppetfile_path = "Puppetfile"
