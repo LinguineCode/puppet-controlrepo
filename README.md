@@ -12,8 +12,23 @@ This project serves as a complete starter kit for your Puppet controlled infrast
 
   1. Clone the repo
   1. Optionally: modify the values in [`common.yaml`](hieradata/common.yaml) to your heart's content (especially `puppet::master::r10k_remote`)
-  1. `vagrant up`
-  1. Enjoy!
+  1. `vagrant up` and watch your new virtual machine get fully provisioned
+
+### Example: Making a change
+
+  1. Try editing some YAML data. Maybe add/remove a DNS server, just for fun.
+  1. `vagrant provision`, now watch the DNS client configuration recieve your change.
+
+### Setting facter facts for Vagrant to use (i.e. `app_role` or `app_tier`)
+  
+Use environment variables to set facter facts that get passed to Vagrant.
+
+```
+$ APP_ROLE=webserver vagrant provision
+or...
+$ APP_ROLE=webserver APP_TIER=production vagrant provision
+```
+  
 
 ## Compatibility
 
