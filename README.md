@@ -1,6 +1,12 @@
 # puppet-controlrepo
 
-This project serves as a complete starter kit for your Puppet controlled infrastructure. It is an R10K-style "puppet-control" repository, set up with *Roles and Profiles* framework, and complete with a `Vagrantfile`.
+This project serves as a complete starter kit for your Puppet controlled infrastructure. It is feature filled with everything you ever wanted but never had; such as *Hiera*, *R10K*, *Roles and Profiles framework*, and *Vagrant*.
+
+## Project Goals
+
+  1. Whitelabel so that anyone can use this project from a class demo all the way to a full blown Fortune 500 datacenter
+  2. Compatible with all operating systems (needs work)
+  3. Stay current with all the best practices
 
 ## Installation and Usage
 
@@ -8,6 +14,10 @@ This project serves as a complete starter kit for your Puppet controlled infrast
   1. Optionally: modify the values in [`common.yaml`](hieradata/common.yaml) to your heart's content (especially `puppet::master::r10k_remote`)
   1. `vagrant up`
   1. Enjoy!
+
+## Compatibility
+
+Tested with Puppet v3.8 (open source) on CentOS 6.7. PRs  with modifications for more compatibility are very welcome.
 
 ## Contributing
 
