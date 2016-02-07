@@ -10,32 +10,45 @@ class profile::base::puppet::master {
   $puppet_master_hiera_datadir         =      hiera('puppet::master::hiera_datadir')
   $puppet_master_hiera_master_service  =      hiera('puppet::master::hiera_master_service')
   $puppet_master_environments          =      hiera('puppet::master::environments')
-
-  # Allow firewall
-  #
-  #
+  
   profile::base::firewall::allow_puppetmaster { $trusted_networks_puppetmaster: }
-
-  # Set up R10K
-  #
-  #
+  
   class { '::r10k':
-    remote => $puppet_master_r10k_remote,
+    remote  => $puppet_master_r10k_remote,
+    require => [ Class['puppet::master'], ],
   }
-
+  
   class { '::hiera':
     eyaml     => $puppet_master_hiera_eyaml,
     hierarchy => $puppet_master_hiera_hierarchy,
     datadir   => $puppet_master_hiera_datadir,
-    # Enable this when hunner/hiera module's tag 1.3.3 gets published
-    #master_service => $puppet_master_master_service,
+    require   => [ Class['puppet::master'], ],
   }
+  
+  case $::osfamily {
+    
+    'RedHat': {
+      
+      yum::repo { 'phusionpassenger':
+        baseurl  => 'https://oss-binaries.phusionpassenger.com/yum/passenger/el/$releasever/$basearch',
+        gpgcheck => '0',
+        enabled  => '1',
+        gpgkey   => 'https://packagecloud.io/gpg.key',
+      }->
+      package { 'passenger':
+      }->
+      class { '::puppet::master':
+        environments => $puppet_master_environments,
+      }
+      
+    }
+    
+    default: {
+      class { '::puppet::master':
+        environments => $puppet_master_environments,
+      }
+    }
 
-  # Setup Puppetmaster
-  #
-  #
-  class { '::puppet::master':
-    environments => $puppet_master_environments,
   }
   
 }
