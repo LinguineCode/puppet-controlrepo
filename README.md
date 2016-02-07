@@ -11,12 +11,9 @@ This project serves as a complete starter kit for your Puppet controlled infrast
 ## Installation and Usage
 
   1. Clone the repo
-  1. Optionally: modify the values in [`common.yaml`](hieradata/common.yaml) to your heart's content (especially `puppet::master::r10k_remote`)
   1. `vagrant up` and watch your new virtual machine get fully provisioned
-
-### Example: Making a change
-
-  1. Try editing some YAML data. Maybe add/remove a DNS server, just for fun.
+  1. `vagrant ssh` and have a look around
+  1. Now try making a change to some YAML data. Edit [`common.yaml`](hieradata/common.yaml) and add/remove a DNS server, just for fun
   1. `vagrant provision`, now watch the DNS client configuration recieve your change.
 
 ### Setting facter facts for Vagrant to use (i.e. `app_role` or `app_tier`)
