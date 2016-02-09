@@ -9,6 +9,6 @@
 :hierarchy:
   - "app_tier/%{::app_tier}"
   - "app_role/%{::app_role}"
-  - "datacenter/%{::network}"
+  - "datacenter/%{::network_eth0}"
   - "vagrant/%{::vagrant}"
   - common
