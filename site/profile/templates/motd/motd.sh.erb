@@ -1,37 +1,29 @@
 #!/bin/bash
 
-cat << "EOF"
-
-<%= ascii %>
-
-EOF
-
-PUPPET_PROFILES_BASE="$(grep ^profile::base /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
-PUPPET_PROFILES_APPS="$(grep ^profile::software /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
-PUPPET_PROFILES="$PUPPET_PROFILES_BASE $PUPPET_PROFILES_APPS"
-
-if [ "$(facter is_pe)" == true ]
-then
-  puppet_service="pe-puppet"
-else
-  puppet_service="puppet"
+if [ -f '/tmp/classes.tmp' ]; then
+ PUPPET_PROFILES_BASE="$(grep ^profile::base /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
+ PUPPET_PROFILES_APPS="$(grep ^profile::apps /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
+ PUPPET_PROFILES="$PUPPET_PROFILES_BASE $PUPPET_PROFILES_APPS"
 fi
 
-if [ "$(service $puppet_service status)" ]
+if [ "$(service <%= @puppet_service %> status)" ]
 then
- PUPPET_AGENT_STATUS="$(service $puppet_service status)"
+ PUPPET_AGENT_STATUS="$(service <%= @puppet_service %> status)"
 else
  PUPPET_AGENT_STATUS="[ NOT RUNNING ]"
 fi
 
-echo
-echo "  This host is running <%= agent %> with the following profiles:"
-echo "$(echo $PUPPET_PROFILES | fmt -w 60 | boxes -d stone | sed 's/^/   /')"
+figlet -c -w 60 $(facter hostname)
+
+if [ "$PUPPET_PROFILES" ]; then
+ echo "  This host is running <%= @agent %> with the following profiles:"
+ echo "$(echo $PUPPET_PROFILES | fmt -w 60 | boxes -d stone | sed 's/^/   /')"
+fi
 echo
 echo "     Puppet Agent Status: $PUPPET_AGENT_STATUS"
-echo "      Puppet Environment: <%= environment %>  "
-echo "                App Role: <%= app_role %>     "
-echo "                App Tier: <%= app_tier %>     "
+echo "      Puppet Environment: <%= @environment %>  "
+echo "                App Role: <%= @app_role %>     "
+echo "                App Tier: <%= @app_tier %>     "
 echo
 echo "  Welcome to $(hostname), $(whoami).          "
 echo
