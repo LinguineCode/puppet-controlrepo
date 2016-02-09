@@ -37,8 +37,23 @@ class profile::base::firewall::pre {
   }
   
   ### Create some rules to allow administration
-  profile::base::firewall::allow_admin { $trusted_networks_admin:
-    priority => '0100',
+  case $::kernel {
+    'Windows': { $adminport = '3389' }
+    default:   { $adminport = 'ssh' }
+  }
+
+  profile::base::firewall::allow { "${trusted_networks_admin}_admin":
+    description => 'Administration',
+    network     => $trusted_networks_admin,
+    priority    => '0100',
+    dports      => $adminport,
+  }
+
+  profile::base::firewall::allow { "${trusted_networks_admin}_icmp":
+    description => 'Ping',
+    priority    => '0100',
+    network     => $trusted_networks_admin,
+    proto       => icmp,
   }
   
 
