@@ -5,7 +5,9 @@ class profile::base::puppet::agent {
 
   $puppet_server      = hiera('puppet::server')
   $puppet_environment = hiera('puppet::environment')
-
+  
+  mkdir::p { '/etc/facter/facts.d': }
+  
   if $::environment == 'production' {
 
     class { '::puppet::agent':
