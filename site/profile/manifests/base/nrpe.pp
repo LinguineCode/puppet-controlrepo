@@ -13,8 +13,9 @@ class profile::base::nrpe {
   # Firewall
   #
   #
-  profile::base::firewall::allow_nrpe { $nrpe_trusted_networks:
-    priority => '0200',
+  profile::base::firewall::allow { $nrpe_trusted_networks:
+    dports      => '5666',
+    description => 'NRPE',
   }
 
   class { '::nrpe':
