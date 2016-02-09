@@ -20,7 +20,7 @@ class profile::base {
   #
   case $::kernel {
     'Linux': {
-      if !$::vagrant { include profile::base::motd }
+      include profile::base::motd
       include profile::base::ssh
       include profile::base::dns_client
       include profile::base::access_and_sudoers
