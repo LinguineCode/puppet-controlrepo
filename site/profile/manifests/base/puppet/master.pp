@@ -12,7 +12,7 @@ class profile::base::puppet::master {
   $puppet_master_environments          =      hiera('puppet::master::environments')
   
   profile::base::firewall::allow { $trusted_networks_puppetmaster:
-    description => 'Puppetmaster'
+    description => 'Puppetmaster',
     dports      => '8140',
   }
   
