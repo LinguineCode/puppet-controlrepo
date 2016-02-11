@@ -4,7 +4,7 @@
 define profile::base::firewall::allow (
   $network     = $name,
   $dports      = undef,
-  $priority    = 05000,
+  $priority    = 5000,
   $description = undef,
   $proto       = tcp,
 ) {
