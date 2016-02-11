@@ -141,7 +141,7 @@ mod 'sysctl',
 
 mod 'logrotate',
  :git => 'https://github.com/rodjek/puppet-logrotate.git',
- :ref => 'v1.0.1'
+ :ref => '1.1.1'
 
 mod 'wordpress',
  :git => 'https://github.com/hunner/puppet-wordpress.git',
