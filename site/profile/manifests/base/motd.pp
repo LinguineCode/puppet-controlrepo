@@ -27,7 +27,7 @@ class profile::base::motd {
   if !$app_tier { $app_tier = 'none' }
   
   case $::osfamily {
-    'RedHat': {
+    /^(RedHat|Debian)$/: {
       file { '/etc/profile.d/motd.sh':
         mode    => '0755',
         content => template('profile/motd/motd.sh.erb'),
@@ -36,7 +36,6 @@ class profile::base::motd {
       file { '/etc/issue.net':
         mode    => '0644',
         content => template('profile/motd/issue.net.erb'),
-        notify  => [ Service['sshd'], ],
       }
     }
 
