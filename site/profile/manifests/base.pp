@@ -46,10 +46,10 @@ class profile::base {
       include profile::base::selinux
       #include profile::base::authentication
     }
-    #'Debian': {
-    #  include profile::base::something
-    #}
-    default: { notify { '$::osfamily is not supported by this system. Please contact Puppet admins' : } }
+    'Debian': {
+      include profile::base::something
+    }
+    default: { notify { '$::osfamily is not supported. Please contact Puppet admins' : } }
   }
 
 
@@ -63,8 +63,12 @@ class profile::base {
     'CentOS': {
 
     }
-    #'Debian': { include profile::base::something }
-    #'Ubuntu': { include profile::base::something }
+    'Debian': {
+      
+    }
+    'Ubuntu': {
+      
+    }
     default: { notify { '$::operatingsystem is not supported by this system. Please contact Puppet admins' : } }
   }
   

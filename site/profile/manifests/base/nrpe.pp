@@ -18,8 +18,14 @@ class profile::base::nrpe {
     description => 'NRPE',
   }
 
+  case $::osfamily {
+    RedHat: { $nagios_plugins_package = 'nagios-plugins-all' }
+    Debian: { $nagios_plugins_package = 'nagios-plugins' }
+    default: { notify { 'Unsupported operating system': } }
+  }
+
   class { '::nrpe':
-    nagios_plugins_package => 'nagios-plugins-all',
+    nagios_plugins_package => $nagios_plugins_package,
     allowed_hosts          => $nrpe_allowed_hosts,
   }
 

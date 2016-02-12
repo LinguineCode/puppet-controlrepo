@@ -121,7 +121,13 @@ supplementary_packages::RedHat: [ 'autofs', 'boxes', 'mlocate',
                                   'tcpdump', 'telnet', 'unzip',
                                   'vim-enhanced'
                                   ]
-
+supplementary_packages::Debian: [ 'apt-transport-https', 'autofs', 'bc', 'boxes',
+                                  'command-not-found', 'command-not-found-data',
+                                  'dnsutils', 'file', 'manpages', 'mailutils',
+                                  'mlocate', 'netcat', 'rsync', 'screen',
+                                  'sysstat', 'telnet', 'vim', 'wget',
+                                  'git', 'unzip',
+                                  ]
 
 mysql::dba_usergroup:   'dba'
 mysql::admin_user:      'myadmin'
