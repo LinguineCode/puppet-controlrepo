@@ -47,7 +47,7 @@ class profile::base {
       #include profile::base::authentication
     }
     'Debian': {
-      include profile::base::something
+      
     }
     default: { notify { '$::osfamily is not supported. Please contact Puppet admins' : } }
   }
