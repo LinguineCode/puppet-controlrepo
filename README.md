@@ -11,6 +11,9 @@ This project serves as a complete starter kit for your Puppet controlled infrast
 ## Installation and Usage
 
   1. Clone the repo
+  2. Install some vagrant plugins
+    3. `vagrant plugin install vagrant-cachier`
+    4. `vagrant plugin install vagrant-cachier`
   1. `vagrant up` and watch your new virtual machine get fully provisioned
   1. `vagrant ssh` and have a look around
   1. Now try making a change to some YAML data. Edit [`common.yaml`](hieradata/common.yaml) and add/remove a DNS server, just for fun
