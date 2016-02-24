@@ -5,15 +5,15 @@ This project serves as a complete starter kit for your Puppet controlled infrast
 ## Project Goals
 
   1. Whitelabel so that anyone can use this project from a class demo all the way to a full blown Fortune 500 datacenter
-  2. Compatible with all operating systems (needs work)
-  3. Stay current with all the best practices
+  1. Compatible with as many operating systems as possible
+  1. Stay current with all the best practices
 
 ## Installation and Usage
 
   1. Clone the repo
-  2. Install some vagrant plugins
-    3. `vagrant plugin install vagrant-cachier`
-    4. `vagrant plugin install vagrant-r10k`
+  1. Install some vagrant plugins
+    1. `vagrant plugin install vagrant-cachier`
+    1. `vagrant plugin install vagrant-r10k`
   1. `vagrant up` and watch your new virtual machine get fully provisioned
   1. `vagrant ssh` and have a look around
   1. Now try making a change to some YAML data. Edit [`common.yaml`](hieradata/common.yaml) and add/remove a DNS server, just for fun
@@ -32,7 +32,7 @@ $ APP_ROLE=webserver APP_TIER=production vagrant provision
 
 ## Compatibility
 
-Tested with Puppet v3.8 (open source) on CentOS 6.7. PRs  with modifications for more compatibility are very welcome.
+Tested with Puppet v3.8 (open source) on CentOS 6.7 and Ubuntu Server 14.04 LTS.
 
 ## Contributing
 
