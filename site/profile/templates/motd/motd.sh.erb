@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo
+
 if [ -f '/tmp/classes.tmp' ]; then
  PUPPET_PROFILES_BASE="$(grep ^profile::base /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
  PUPPET_PROFILES_APPS="$(grep ^profile::apps /tmp/classes.tmp | awk -F \: '{print $5}' | sort | uniq)"
@@ -28,4 +30,3 @@ echo
 echo "  Welcome to $(hostname), $(whoami).          "
 echo
 uptime
-echo
