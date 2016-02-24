@@ -27,19 +27,27 @@ class profile::base::motd {
   if !$app_tier { $app_tier = 'none' }
   
   case $::osfamily {
-    /^(RedHat|Debian)$/: {
-      file { '/etc/profile.d/motd.sh':
-        mode    => '0755',
-        content => template('profile/motd/motd.sh.erb'),
-        require => [ Package['figlet'], ],
-      }
-      file { '/etc/issue.net':
-        mode    => '0644',
-        content => template('profile/motd/issue.net.erb'),
-      }
-    }
+    'Debian': {
 
-    default: { notify { "${::osfamily} OS family not supported": } }
+      $disable_motds = [ '/etc/update-motd.d/10-help-text',
+                          '/etc/update-motd.d/51-cloudguest', ]
+      file { $disable_motds: mode => '0000', }
+
+      $motdfile = '/etc/update-motd.d/60-puppet-motd'
+
+    }
+    default: { $motdfile = '/etc/profile.d/puppet-motd.sh' }
+  }
+  
+  file { $motdfile:
+    mode    => '0755',
+    content => template('profile/motd/motd.sh.erb'),
+    require => [ Package['figlet'], ],
+  }
+
+  file { '/etc/issue.net':
+    mode    => '0644',
+    content => template('profile/motd/issue.net.erb'),
   }
 
 }
