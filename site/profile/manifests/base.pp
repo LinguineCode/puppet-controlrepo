@@ -26,6 +26,7 @@ class profile::base {
       include profile::base::access_and_sudoers
       include profile::base::nrpe
       include profile::base::logrotate
+      include profile::base::postfix
     }
     #'Windows': {
     #  include profile::base::lolwindows

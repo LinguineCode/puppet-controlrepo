@@ -158,3 +158,7 @@ mod 'puppet',
 mod 'mkdir',
  :git => 'https://github.com/flypenguin/puppet-mkdir.git',
  :ref => 'v1.0.3'
+
+mod 'postfix',
+ :git => 'https://github.com/jlambert121/jlambert121-postfix.git',
+ :ref => '0.9.0'
