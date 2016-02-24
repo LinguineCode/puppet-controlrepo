@@ -3,6 +3,6 @@
 #
 class profile::base::logrotate {
 
-  include '::logrotate::base'
+  include '::logrotate'
 
 }
