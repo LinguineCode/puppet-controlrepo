@@ -9,15 +9,14 @@ class profile::base::nrpe {
   $nrpe_trusted_networks = hiera_array('firewall::trusted_networks::nrpe')
   #$nrpe_myplugins        =  hiera_hash('nrpe::myplugins')
   $nrpe_allowed_hosts    =       hiera('nrpe::allowed_hosts')
+  
 
-  # Firewall
-  #
-  #
-  profile::base::firewall::allow { $nrpe_trusted_networks:
-    dports      => '5666',
-    description => 'NRPE',
+  firewall { '5000 NRPE':
+    action => accept,
+    dport  => '5666',
+    source => $nrpe_trusted_networks,
   }
-
+  
   case $::osfamily {
     RedHat: { $nagios_plugins_package = 'nagios-plugins-all' }
     Debian: { $nagios_plugins_package = 'nagios-plugins' }

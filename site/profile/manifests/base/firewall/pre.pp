@@ -42,33 +42,16 @@ class profile::base::firewall::pre {
     default:   { $adminport = 'ssh' }
   }
 
-  profile::base::firewall::allow { "${trusted_networks_admin}_admin":
-    description => 'Administration',
-    network     => $trusted_networks_admin,
-    priority    => '0100',
-    dports      => $adminport,
+  firewall { '9000 Administration':
+    action => accept,
+    dport  => $adminport,
+    source => $trusted_networks_admin,
   }
 
-  profile::base::firewall::allow { "${trusted_networks_admin}_icmp":
-    description => 'Ping',
-    priority    => '0100',
-    network     => $trusted_networks_admin,
-    proto       => icmp,
+  firewall { '9000 ICMP':
+    action => accept,
+    proto  => icmp,
+    source => $trusted_networks_admin,
   }
-  
-
-  # TIP:
-  #
-  #  Puppet 4.0 has a great new way to iterate over hashes (we are currently 3.x)
-  #  Perfect for managing firewall rules as documented here: http://terrarum.net/blog/puppet-infrastructure.html
-  #  Example:
-  #$trusted_networks = hiera_array('trusted_networks')
-  #$trusted_networks.each |$network| {
-  #  firewall { "003 allow all traffic from ${network}":
-  #    proto  => 'all',
-  #    source => $network,
-  #    action => 'accept',
-  #  }
-  #}
 
 }

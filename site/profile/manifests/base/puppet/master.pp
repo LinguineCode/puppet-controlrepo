@@ -11,9 +11,10 @@ class profile::base::puppet::master {
   $puppet_master_hiera_master_service  =      hiera('puppet::master::hiera_master_service')
   $puppet_master_environments          =      hiera('puppet::master::environments')
   
-  profile::base::firewall::allow { $trusted_networks_puppetmaster:
-    description => 'Puppetmaster',
-    dports      => '8140',
+  firewall { '5000 Puppetmaster':
+    action => accept,
+    dport  => '8140',
+    source => $trusted_networks_puppetmaster,
   }
   
   class { '::r10k':

@@ -31,13 +31,13 @@ ssh::client_options::forwardx11trusted: yes
 ssh::client_options::serveraliveinterval: 10
 
 firewall::trusted_networks::admin: #This will become tcp/3389 for Windows, or tcp/22 for anything else
- - 10.0.2.0/24
+ - 10.0.0.0/8
 firewall::trusted_networks::web:
  - 10.0.0.0/8
 firewall::trusted_networks::puppetmaster:
  - 10.0.0.0/8
 firewall::trusted_networks::nrpe:
- - 10.0.2.0/24
+ - 10.0.0.0/8
 
 nrpe::allowed_hosts: [ 'nagios.home', '10.0.2.10' ]
 
