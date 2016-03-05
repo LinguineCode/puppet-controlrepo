@@ -1,3 +1,3 @@
 ---
 classes:
- - ::role::puppet::allinone
+ - '::role::puppet::allinone'
