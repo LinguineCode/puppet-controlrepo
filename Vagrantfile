@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+required_plugins = %w( vagrant-cachier vagrant-r10k )
+required_plugins.each do |plugin|
+    exec "vagrant plugin install #{plugin};vagrant #{ARGV.join(" ")}" unless Vagrant.has_plugin? plugin || ARGV[0] == 'plugin'
+end
+
 ## Uncomment to enable GUI for troubleshooting via console:
 #Vagrant.configure("1") do |config|
 #  config.vm.boot_mode = :gui
