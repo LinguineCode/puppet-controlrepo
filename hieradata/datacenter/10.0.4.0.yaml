@@ -1,2 +1,2 @@
 ---
-resolv_conf::nameservers: [ '10.0.4.1', '10.0.4.2' ]
+resolv_conf::nameservers: [ 10.0.4.1, 10.0.4.2 ]
