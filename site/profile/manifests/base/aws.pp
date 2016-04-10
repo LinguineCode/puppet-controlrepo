@@ -9,6 +9,10 @@ class profile::base::aws {
   profile::base::access_and_sudoers::allow { $aws_admin_username:
     sudoer_content => 'ALL=(ALL) NOPASSWD:ALL',
   }
-    
+  
+  host { 'localhost':
+    ip           => '127.0.0.1',
+    host_aliases => [ $::hostname, ],
+  }
 
 }
