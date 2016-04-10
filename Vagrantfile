@@ -53,6 +53,7 @@ Vagrant.configure("2") do |config|
       "vagrant" => "vagrant",
       "app_role" => ENV.fetch('APP_ROLE', 'none'),
       "app_tier" => ENV.fetch('APP_TIER', 'none'),
+      "ec2_services_domain" => ENV.fetch('EC2_SERVICES_DOMAIN', 'none'),
     }
     puppet.manifests_path = "manifests/"
     puppet.manifest_file  = "site.pp"

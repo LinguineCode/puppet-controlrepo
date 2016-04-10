@@ -2,7 +2,7 @@
 #
 #
 class profile::base {
-
+  
   # Profiles that universally support (or are easily able to
   # universally support) all platforms. include them here in base.
   # 

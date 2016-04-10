@@ -1,0 +1,4 @@
+---
+access_and_sudoers::allow:
+ centos:
+  sudoer_content: ALL=(ALL) NOPASSWD:ALL
