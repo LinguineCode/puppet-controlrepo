@@ -57,7 +57,8 @@ puppet::master::hiera_hierarchy:
  - vagrant/%%{}{::vagrant}
  - app_tier/%%{}{::app_tier}-%%{}{::app_role}
  - app_role/%%{}{::app_role}
- - aws/%%{}{ec2_services_domain}/%%{}{operatingsystem}
+ - aws/%%{}{::ec2_services_domain}/%%{}{::operatingsystem}
+ - aws/%%{}{::ec2_services_domain}
  - datacenter/%%{}{::network_eth0}
  - common
 puppet::master::hiera_master_service: httpd
