@@ -80,4 +80,8 @@ class profile::base {
     include profile::base::vagrant
   }
 
+  if $::ec2_services_domain {
+    include profile::base::aws
+  }
+
 }

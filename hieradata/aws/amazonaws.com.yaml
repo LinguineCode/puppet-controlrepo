@@ -1,0 +1,2 @@
+---
+resolv_conf::searchpath: ec2.internal
