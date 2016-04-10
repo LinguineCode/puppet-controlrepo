@@ -12,7 +12,7 @@ end
 #end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "box-cutter/centos67"
   config.vm.provider "virtualbox" do |v|
     host = RbConfig::CONFIG['host_os']
   
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
       "vagrant" => "vagrant",
       "app_role" => ENV.fetch('APP_ROLE', 'none'),
       "app_tier" => ENV.fetch('APP_TIER', 'none'),
-      "ec2_services_domain" => ENV.fetch('EC2_SERVICES_DOMAIN', ''),
+      "ec2_services_domain" => ENV.fetch('EC2_SERVICES_DOMAIN', 'none'),
     }
     puppet.manifests_path = "manifests/"
     puppet.manifest_file  = "site.pp"
