@@ -34,7 +34,7 @@ class profile::base {
     #  include profile::base::adware_removers
     #  include profile::base::reboot_every_day
     #}
-    default: { notify { '$::kernel is not supported by this system. Please contact Puppet admins' : } }
+    default: { notify { "${::kernel} is not supported by this system. Please contact Puppet admins" : } }
   }
 
 
@@ -50,7 +50,7 @@ class profile::base {
     'Debian': {
       
     }
-    default: { notify { '$::osfamily is not supported. Please contact Puppet admins' : } }
+    default: { notify { "${::osfamily} is not supported. Please contact Puppet admins" : } }
   }
 
 
@@ -70,7 +70,7 @@ class profile::base {
     'Ubuntu': {
       
     }
-    default: { notify { '$::operatingsystem is not supported by this system. Please contact Puppet admins' : } }
+    default: { notify { "${::operatingsystem} is not supported by this system. Please contact Puppet admins" : } }
   }
   
   # Extra items for specific Hypervisors
