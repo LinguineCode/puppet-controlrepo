@@ -31,13 +31,13 @@ ssh::client_options::forwardx11trusted: yes
 ssh::client_options::serveraliveinterval: 10
 
 firewall::trusted_networks::admin: #This will become tcp/3389 for Windows, or tcp/22 for anything else
- - 10.0.2.0/24
+ - 10.0.0.0/8
 firewall::trusted_networks::web:
  - 10.0.0.0/8
 firewall::trusted_networks::puppetmaster:
  - 10.0.0.0/8
 firewall::trusted_networks::nrpe:
- - 10.0.2.0/24
+ - 10.0.0.0/8
 
 nrpe::allowed_hosts: [ 'nagios.home', '10.0.2.10' ]
 
@@ -54,10 +54,10 @@ puppet::environment: production
 puppet::master::r10k_remote: https://github.com/seanscottking/puppet-controlrepo.git
 puppet::master::hiera_eyaml: true
 puppet::master::hiera_hierarchy:
- - app_tier/%%{}{::app_tier}
+ - vagrant/%%{}{::vagrant}
+ - app_tier/%%{}{::app_tier}-%%{}{::app_role}
  - app_role/%%{}{::app_role}
  - datacenter/%%{}{::network_eth0}
- - vagrant/%%{}{::vagrant}
  - common
 puppet::master::hiera_master_service: httpd
 puppet::master::hiera_datadir: /etc/puppet/environments/%%{}{::environment}/hieradata
@@ -72,7 +72,7 @@ supplementary_packages::Debian: [ apt-transport-https, autofs, bc, boxes,
                                   command-not-found, command-not-found-data,
                                   dnsutils, file, manpages, mailutils, mlocate,
                                   netcat, rsync, screen, sysstat, telnet, vim,
-                                  wget, git, unzip
+                                  wget, unzip
                                   ]
 supplementary_packages::RedHat: [ autofs, boxes, mlocate, openldap-clients,
                                   rsync, rsyslog, screen, sysstat, tcpdump,

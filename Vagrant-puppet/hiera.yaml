@@ -7,8 +7,8 @@
 :json:
   :datadir: /vagrant/hieradata
 :hierarchy:
-  - "app_tier/%{::app_tier}"
+  - "vagrant/%{::vagrant}"
+  - "app_tier/%{::app_tier}-%{::app_role}"
   - "app_role/%{::app_role}"
   - "datacenter/%{::network_eth0}"
-  - "vagrant/%{::vagrant}"
   - common
