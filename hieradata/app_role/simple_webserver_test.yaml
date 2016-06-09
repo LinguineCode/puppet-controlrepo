@@ -1,0 +1,15 @@
+---
+classes:
+ - role::simple_webserver::test
+
+apache::vhostname: mywebserver.example.com
+apache::docroot: /var/www/html/mywebserver
+apache::port: 80
+apache::index_content: |
+  <html>
+    <center>Automation for the People
+    <br/>
+    <img alt="R.E.M.: Automatic For The People" src="http://static.stereogum.com/uploads/2012/10/rem-automatic-608x600.jpeg"
+    </center>
+  </html>
+firewall::allow_web: '0.0.0.0/0'
